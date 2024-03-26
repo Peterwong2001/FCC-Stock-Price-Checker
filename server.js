@@ -7,8 +7,17 @@ const cors        = require('cors');
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
-
+const helmet            = require('helmet'); 
+require("./db connection.js");
 const app = express();
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "https://cdn.freecodecamp.org"],
+    styleSrc: ["'self'"],
+  }
+}))
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
